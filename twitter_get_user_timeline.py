@@ -5,20 +5,18 @@ from twitter_client import get_twitter_client
 from datetime import datetime
 
 if __name__ == '__main__':
-    #user = sys.argv[1]
-    users=["jairbolsonaro","marinasilva","cirogomes","geraldoalckmin","haddad_fernando"]
+    users=["jairbolsonaro","lulaoficial","cirogomes","simonetebetbr","leopericlesup", "fdavilaoficial", "verapstu", "sofiamanzanopcb", "eymaeloficial", "sorayathronicke", "pablomarcal"]
     client = get_twitter_client()
-    
+
+    agora=datetime.now()
+    hoje=format(agora.day)
+    hoje+="-"+format(agora.month)
+
     for name in users:
-        dirname= "timeline/{}".format(name)
-        fname2=dirname
-        fname2+= "/user_timeline_29-10.jsonl"
-        consulta="from:"+name+" since:2018-10-29 until:2018-10-30"
+        dirname= "timeline"
+        filename = dirname + "/{}_timeline_".format(name)+ hoje + ".jsonl"
+        consulta="from:"+name+" since:2022-08-01 until:2022-10-30"
 
-        with open(fname2, 'w') as f:
-            for status in Cursor(client.search, q=consulta,result_type='recent',include_entities=True, monitor_rate_limit=False, wait_on_rate_limit=False).items(300):
-                f.write(json.dumps(status._json)+"\n")
-
-
-            
-
+        with open(filename, 'w') as f:
+            for status in Cursor(client.search_tweets, q=consulta,include_entities=True).items(1000):
+                f.write(json.dumps(status._json, indent=4)+"\n")

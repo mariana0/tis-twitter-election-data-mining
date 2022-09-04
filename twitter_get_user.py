@@ -19,7 +19,6 @@ if __name__ == '__main__':
     for name in users:
         dirname="perfil"
 
-        # get user's profile
         filename = dirname + "/{}_profile_".format(name)+ hoje + ".json"
         with open(filename, 'w') as f:
             profile = client.get_user(screen_name=name)

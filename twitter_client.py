@@ -27,5 +27,5 @@ def get_twitter_client():
     Return: tweepy.API object
     """
     auth = get_twitter_auth()
-    client = API(auth)
+    client = API(auth, wait_on_rate_limit=True)
     return client
